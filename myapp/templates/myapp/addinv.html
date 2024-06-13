@@ -1,0 +1,20 @@
+{% extends 'myapp/base.html'%}
+{% load crispy_forms_tags %}
+{% block content %}
+<div class="jumbotron jumbotron-fluid">
+    <div class="container">
+        <center><h1 class="display-4">Inventory Management</h1></center>
+        <center><p class="lead">Efficiently manage your inventory with our tools.</center></p>
+
+        <div class="row justify-content-center">
+            <div class="col-md-6">
+                <form action="" method="POST">
+                    {% csrf_token %}
+                    {{ form|crispy }}
+                    <button type="submit" class="btn btn-primary">Save</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock content %}

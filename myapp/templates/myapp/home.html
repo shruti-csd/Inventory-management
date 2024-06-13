@@ -1,0 +1,76 @@
+{% extends 'myapp/base.html' %}
+{% block content %}
+<style>
+    .chart-container {
+        width: 30%; /* Adjust width as needed */
+        height: 100px; /* Adjust height as needed */
+        display: inline-block;
+        margin-right: 20px;
+    }
+
+    .chart-heading {
+        text-align: center;
+    }
+</style>
+
+<div class="chart-container">
+    <h2 class="chart-heading">Min and Max Quantities</h2>
+    <canvas id="minMaxChart"></canvas>
+</div>
+
+<div class="chart-container">
+    <h2 class="chart-heading">Top Three Products</h2>
+    <canvas id="topProductsChart"></canvas>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.7.0/chart.min.js"></script>
+<script>
+    // Prepare data for min and max quantities chart
+    var minMaxData = {
+        labels: ['Minimum Quantity', 'Maximum Quantity'],
+        datasets: [{
+            data: [{{ min_quantity }}, {{ max_quantity }}],
+            backgroundColor: [
+                'rgba(255, 99, 132, 0.5)',
+                'rgba(54, 162, 235, 0.5)'
+            ],
+            borderColor: [
+                'rgba(255, 99, 132, 1)',
+                'rgba(54, 162, 235, 1)'
+            ],
+            borderWidth: 1
+        }]
+    };
+
+    // Render min and max quantities chart
+    var minMaxChart = new Chart(document.getElementById('minMaxChart'), {
+        type: 'pie',
+        data: minMaxData
+    });
+
+    // Prepare data for top 3 products chart
+    var topProductsData = {
+        labels: [{% for product in top_products %}"{{ product.Productname }}",{% endfor %}],
+        datasets: [{
+            data: [{% for product in top_products %}{{ product.Productqnt }},{% endfor %}],
+            backgroundColor: [
+                'rgba(255, 206, 86, 0.5)',
+                'rgba(75, 192, 192, 0.5)',
+                'rgba(153, 102, 255, 0.5)'
+            ],
+            borderColor: [
+                'rgba(255, 206, 86, 1)',
+                'rgba(75, 192, 192, 1)',
+                'rgba(153, 102, 255, 1)'
+            ],
+            borderWidth: 1
+        }]
+    };
+
+    // Render top 3 products chart
+    var topProductsChart = new Chart(document.getElementById('topProductsChart'), {
+        type: 'pie',
+        data: topProductsData
+    });
+</script>
+{% endblock %}

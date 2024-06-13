@@ -1,0 +1,57 @@
+{% extends 'myapp/base.html'%}
+{% load crispy_forms_tags %}
+{% block content %}
+    <div class="jumbotron jumbotron-fluid">
+        <div class="container">
+            <center><h1 class="display-4">Inventory Management</center></h1>
+            <center><p class="lead">Efficiently manage your inventory with our tools.</center></p>
+        </div>
+    </div>
+    
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6">
+                <a href="{% url 'add' %}" class="btn btn-primary">Add Inventory</a>
+                <a href="{% url 'datashow' %}" class="btn btn-primary">View Inventory</a>
+            </div>
+        </div>
+        <br>
+        <form action="" method="POST">
+            {% csrf_token %}
+            {{ forms|crispy }}
+           
+            <input type="submit" value="Search"/>
+          </form>
+        
+        <div class="row">
+            <div class="col-md-12">
+                <div class="table-responsive">
+                    <table class="table table-hover">
+                        <thead>
+                            <tr>
+                                <th>Count</th>
+                                <th>Product Name</th>
+                                <th>Quantity</th>
+                                <th>Unit</th>
+                                <th>Delete</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for instance in queryset%}
+                            <tr>
+                                <td>{{forloop.counter}}</td>
+                                <td><a href="{% url 'update' instance.id%}">{{instance.Productname}}</td>
+                                <td>{{instance.Productqnt}}</td>
+                                <td>{{instance.Unitoffprd}}</td>
+                                <td><a href="{% url 'delete' instance.id%}">Delete</a></td>
+                               
+                            </tr>
+                            {% endfor %}
+                            
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock content %}

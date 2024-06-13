@@ -1,0 +1,23 @@
+{% extends 'myapp/base.html'%}
+{% load crispy_forms_tags %}
+{% block content %}
+<div class="container">
+  <div class="jumbotron jumbotron-fluid">
+    <div class="container">
+        <form method='POST' action="">
+            {% csrf_token %}
+           
+            {{ form|crispy }}
+      <h1 class="display-4">Are you sure you want to delete?</h1>
+      <input clas='btn btn-danger' type="submit" value="YES"/>
+
+      <a href="kitchen"><div class="btn btn-primary">Cancel</div></a>
+
+
+      </form>
+
+    </div>
+  </div>
+</div>
+
+{% endblock content %}

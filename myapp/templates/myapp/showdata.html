@@ -1,0 +1,36 @@
+{% extends 'myapp/base.html'%}
+{% block content %}
+<br>
+<center><h1>List of our products</h1></center>
+<br>
+<table class="table">
+  
+    <thead>
+      <tr>
+        <th scope="col">Count</th>
+        <th>Product Name</th>
+        <th>Product Quantity</th>
+        <th>Unit of Products</th>
+        
+      </tr>
+      {% for item in queryset %}
+      <tr>
+        <td>{{forloop.counter}}</td>
+        <td>{{ item.Productname }}</td>
+        <td>{{ item.Productqnt }}</td>
+        <td>{{ item.Unitoffprd}}</td>
+    </tr>
+    {% empty %}
+    <tr>
+        <td colspan="2">No items found</td>
+    </tr>
+    {% endfor %}
+</table>
+</body>
+</html>
+   
+    
+   
+
+
+{% endblock content %}
